@@ -61,7 +61,13 @@ def blackjack():
 
 def calculate_score():
     """calculate the score then conclude the game or call blackjack()"""
-    if 11 not in player and sum(player) > 21:
+    if sum(player) == sum(dealer):
+        print(random.choice(draw))
+    elif sum(player) == 21 and len(player) == 2:
+        return "BLACKJACK BITCH!! NOW WE'RE TALKING!!!"
+    elif 11 in dealer and 10 in dealer:
+        return "OPPONENT HAS BLACKJACKU, LOSE!"
+    elif 11 not in player and sum(player) > 21:
         final_score()
         print(random.choice(lose))
     elif 11 in player and sum(player) > 21:
@@ -73,10 +79,6 @@ def calculate_score():
         else:
             score()
             blackjack()
-    elif sum(player) == sum(dealer):
-        print(random.choice(draw))
-    elif sum(player) == 21 and len(player) == 2:
-        print("BLACKJACK BITCH!! NOW WE'RE TALKING!!!")
     elif 21 >= sum(player) > sum(dealer):
         print(random.choice(win))
     elif 21 >= sum(dealer) > sum(player):
