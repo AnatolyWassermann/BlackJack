@@ -2,7 +2,7 @@ import random
 from asciis import logo_blackjack
 # a take on blackjack game.
 print(logo_blackjack)
-win = ["opponent went over. you win 😜", "it's unbelievable you won! 😁",
+win = ["you win 😜", "it's unbelievable you won! 😁",
        "believe it or not but you made it 😎"]
 lose = ["you fucked up pretty badly 😕",
         "you lose i feel bad right now because of your failure 😓",
@@ -65,14 +65,12 @@ def blackjack(player, dealer, players_deck, dealers_deck):
             blackjack(player, dealer, players_deck, dealers_deck)
     else:
         while 21 >= sum(player) > sum(dealer):
-            # if no ACE in dealer's hand score fewer than 17
-            # pull another card until hit 17
             dealer.append(dealers_deck[0])
             dealers_deck.pop(0)
         if sum(dealer) > 21 and 11 in dealer:
             dealer.remove(11)
             dealer.append(1)
-            if sum(dealer) < 17:
+            if sum(dealer) < sum(player):
                 dealer.append(dealers_deck[0])
         final_score(player, dealer)
         calculate_score(player, dealer)
@@ -80,12 +78,12 @@ def blackjack(player, dealer, players_deck, dealers_deck):
 
 def calculate_score(player, dealer):
     """calculate the score then conclude the game"""
-    if sum(player) == sum(dealer):
-        print(random.choice(draw))
-    elif sum(player) == 21 and len(player) == 2:
+    if sum(player) == 21 and len(player) == 2:
         print("BLACKJACK BITCH!! NOW WE'RE TALKING!!!")
     elif sum(dealer) == 21 and len(dealer) == 2:
         print("OPPONENT HAS BLACKJACKU, LOSE!")
+    elif sum(player) == sum(dealer):
+        print(random.choice(draw))
     elif sum(player) > 21:
         final_score(player, dealer)
         print(random.choice(lose))
