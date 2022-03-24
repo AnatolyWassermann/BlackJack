@@ -1,6 +1,6 @@
 import random
 from asciis import logo_blackjack
-# a take on blackjack game. only difference is dealer can't use ACE as value 1
+# a take on blackjack game.
 players_deck = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 dealers_deck = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
@@ -55,8 +55,14 @@ def blackjack():
             score()
             blackjack()
     else:
-        while sum(dealer) < 17:
+        while sum(dealer) < 17 and 11 not in dealer:
             dealer.append(dealers_deck[0])
+            dealers_deck.pop(0)
+        if 11 in dealer and sum(dealer) > 21:
+            dealer.remove(11)
+            dealer.append(1)
+            while sum(dealer) < 17:
+                dealer.append(dealers_deck[0])
         final_score()
         calculate_score()
 
@@ -67,7 +73,7 @@ def calculate_score():
         print(random.choice(draw))
     elif sum(player) == 21 and len(player) == 2:
         return "BLACKJACK BITCH!! NOW WE'RE TALKING!!!"
-    elif 11 in dealer and 10 in dealer:
+    elif sum(dealer) == 21 and len(dealer) == 2:
         return "OPPONENT HAS BLACKJACKU, LOSE!"
     elif 11 in player and sum(player) > 21:
         player.remove(11)
