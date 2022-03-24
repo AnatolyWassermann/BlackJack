@@ -1,7 +1,7 @@
 import random
 from asciis import logo_blackjack
 # a take on blackjack game.
-
+print(logo_blackjack)
 win = ["opponent went over. you win 😜", "it's unbelievable you won! 😁",
        "believe it or not but you made it 😎"]
 lose = ["you fucked up pretty badly 😕",
@@ -15,7 +15,6 @@ def starting_hand():
     """game starts 2 cards for each side, but only shows dealer's first card
     shuffling both lists to get random cards then remove them from
     actual lists, no duplicate cards """
-    print(logo_blackjack)
     deck = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
     players_deck = deck
     dealers_deck = deck
@@ -65,19 +64,16 @@ def blackjack(player, dealer, players_deck, dealers_deck):
             score(player, dealer)
             blackjack(player, dealer, players_deck, dealers_deck)
     else:
-        while sum(dealer) < 17 and 11 not in dealer:
+        while 21 >= sum(player) > sum(dealer):
             # if no ACE in dealer's hand score fewer than 17
             # pull another card until hit 17
             dealer.append(dealers_deck[0])
             dealers_deck.pop(0)
-        if 11 in dealer and sum(dealer) > 21:
-            # if there is an ACE and score is more than 21 make ACE to value 1
-            # then if hand is below 17 pull another card
+        if sum(dealer) > 21 and 11 in dealer:
             dealer.remove(11)
             dealer.append(1)
-            while sum(dealer) < 17:
+            if sum(dealer) < 17:
                 dealer.append(dealers_deck[0])
-                dealers_deck.pop(0)
         final_score(player, dealer)
         calculate_score(player, dealer)
 
