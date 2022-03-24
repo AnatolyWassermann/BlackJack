@@ -19,6 +19,7 @@ def starting_hand():
     """game starts 2 cards for each side, but only shows dealer's first card
     shuffling both lists to get random cards then remove them from
     actual lists, no duplicate cards """
+    print(logo_blackjack)
     random.shuffle(players_deck)
     random.shuffle(dealers_deck)
     for i in range(2):
@@ -100,14 +101,4 @@ def calculate_score():
         print(random.choice(lose))
 
 
-def game_start():
-    game = input(
-        "Do you want to play a game of Blackjack? type 'y' or 'n': ").lower()
-    if game == 'y':
-        print(logo_blackjack)
-        starting_hand()
-    else:
-        print("BYE BYE")
-
-
-game_start()
+starting_hand()
