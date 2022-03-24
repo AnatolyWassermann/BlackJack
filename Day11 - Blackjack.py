@@ -56,13 +56,18 @@ def blackjack():
             blackjack()
     else:
         while sum(dealer) < 17 and 11 not in dealer:
+            # if no ACE in dealer's hand score fewer than 17
+            # pull another card until hit 17
             dealer.append(dealers_deck[0])
             dealers_deck.pop(0)
         if 11 in dealer and sum(dealer) > 21:
+            # if there is an ACE and score is more than 21 make ACE to value 1
+            # then if hand is below 17 pull another card
             dealer.remove(11)
             dealer.append(1)
             while sum(dealer) < 17:
                 dealer.append(dealers_deck[0])
+                dealers_deck.pop(0)
         final_score()
         calculate_score()
 
