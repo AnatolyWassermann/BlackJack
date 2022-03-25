@@ -64,14 +64,18 @@ def blackjack(player, dealer, players_deck, dealers_deck):
             score(player, dealer)
             blackjack(player, dealer, players_deck, dealers_deck)
     else:
-        while 21 >= sum(player) > sum(dealer):
-            dealer.append(dealers_deck[0])
-            dealers_deck.pop(0)
+        if sum(player) == 21 and len(player) == 2:
+            calculate_score(player, dealer)
+        if 21 >= sum(player) > sum(dealer):
+            while 21 >= sum(player) > sum(dealer):
+                dealer.append(dealers_deck[0])
+                dealers_deck.pop(0)
         if sum(dealer) > 21 and 11 in dealer:
             dealer.remove(11)
             dealer.append(1)
-            if sum(dealer) < sum(player):
+            while sum(dealer) < sum(player):
                 dealer.append(dealers_deck[0])
+                dealers_deck.pop(0)
         final_score(player, dealer)
         calculate_score(player, dealer)
 
