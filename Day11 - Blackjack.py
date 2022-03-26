@@ -1,14 +1,14 @@
 import random
 from asciis import logo_blackjack
 # a take on blackjack game.
-print(logo_blackjack)
-win = ["you win 😜", "it's unbelievable you won! 😁",
-       "believe it or not but you made it 😎"]
-lose = ["you fucked up pretty badly 😕",
-        "you lose i feel bad right now because of your failure 😓",
-        "unfortunately you lose 😞"]
-draw = ["eny meny miny moe where my gloves will go! it's a draw 😑",
-        "sorry but it's a draw tops lel", "DRAW!"]
+game = True
+win = ["\nyou win 😜", "\nit's unbelievable you won! 😁",
+       "\nbelieve it or not but you made it 😎"]
+lose = ["\nyou fucked up pretty badly 😕",
+        "\nyou lose i feel bad right now because of your failure 😓",
+        "\nunfortunately you lose 😞"]
+draw = ["\neny meny miny moe where my gloves will go! it's a draw 😑",
+        "\nsorry but it's a draw tops lel", "\nDRAW!"]
 
 
 def starting_hand():
@@ -33,13 +33,13 @@ def starting_hand():
 
 def score(player, dealer):
     """showing the current score"""
-    print(f"    Your cards: {player}, Current score: {sum(player)}")
+    print(f"\n    Your cards: {player}, Current score: {sum(player)}")
     print(f"    Computer's first card: {dealer[0]}")
 
 
 def final_score(player, dealer):
     """showing the final score"""
-    print(f"    Your final hand: {player}, Final Score: {sum(player)}")
+    print(f"\n    Your final hand: {player}, Final Score: {sum(player)}")
     print(f"    Computer's final hand: {dealer}, Final Score: {sum(dealer)}")
 
 
@@ -65,17 +65,18 @@ def blackjack(player, dealer, players_deck, dealers_deck):
             blackjack(player, dealer, players_deck, dealers_deck)
     else:
         if sum(player) == 21 and len(player) == 2:
+            print("\nBLACKJACK BITCH!!")
             calculate_score(player, dealer)
-        if 21 >= sum(player) > sum(dealer):
+        elif 21 >= sum(player) > sum(dealer):
             while 21 >= sum(player) > sum(dealer):
                 dealer.append(dealers_deck[0])
                 dealers_deck.pop(0)
-        if sum(dealer) > 21 and 11 in dealer:
-            dealer.remove(11)
-            dealer.append(1)
-            while sum(dealer) < sum(player):
-                dealer.append(dealers_deck[0])
-                dealers_deck.pop(0)
+            if sum(dealer) > 21 and 11 in dealer:
+                dealer.remove(11)
+                dealer.append(1)
+                while sum(dealer) < sum(player):
+                    dealer.append(dealers_deck[0])
+                    dealers_deck.pop(0)
         final_score(player, dealer)
         calculate_score(player, dealer)
 
@@ -83,9 +84,9 @@ def blackjack(player, dealer, players_deck, dealers_deck):
 def calculate_score(player, dealer):
     """calculate the score then conclude the game"""
     if sum(player) == 21 and len(player) == 2:
-        print("BLACKJACK BITCH!! NOW WE'RE TALKING!!!")
+        return
     elif sum(dealer) == 21 and len(dealer) == 2:
-        print("OPPONENT HAS BLACKJACKU, LOSE!")
+        print("\nOPPONENT HAS BLACKJACK, YOU LOSE!")
     elif sum(player) == sum(dealer):
         print(random.choice(draw))
     elif sum(player) > 21:
@@ -99,4 +100,12 @@ def calculate_score(player, dealer):
         print(random.choice(lose))
 
 
-starting_hand()
+while game:
+    play = input("\nWould you like to play Blackjack type 'y' or 'n': ".lower())
+    if play == 'y':
+        print("\n" * 80)
+        print(logo_blackjack)
+        starting_hand()
+    else:
+        print("bye bye!")
+        game = False
