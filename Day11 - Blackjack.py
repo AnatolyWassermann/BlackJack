@@ -65,8 +65,7 @@ def blackjack(player, dealer, players_deck, dealers_deck):
             blackjack(player, dealer, players_deck, dealers_deck)
     else:
         if sum(player) == 21 and len(player) == 2:
-            print("\nBLACKJACK BITCH!!")
-            calculate_score(player, dealer)
+            pass
         elif 21 >= sum(player) > sum(dealer):
             while 21 >= sum(player) > sum(dealer):
                 dealer.append(dealers_deck[0])
@@ -84,7 +83,7 @@ def blackjack(player, dealer, players_deck, dealers_deck):
 def calculate_score(player, dealer):
     """calculate the score then conclude the game"""
     if sum(player) == 21 and len(player) == 2:
-        return
+        print("\nBLACKJACK BITCH!!")
     elif sum(dealer) == 21 and len(dealer) == 2:
         print("\nOPPONENT HAS BLACKJACK, YOU LOSE!")
     elif sum(player) == sum(dealer):
